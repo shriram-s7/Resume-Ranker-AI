@@ -1,0 +1,15 @@
+# Data files (ignored to prevent exceeding GitHub size limits)
+*.jsonl
+*.jsonl.gz
+
+# Python caches and local files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db

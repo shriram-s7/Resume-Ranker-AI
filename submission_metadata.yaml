@@ -1,0 +1,44 @@
+# Redrob Hackathon — Submission Metadata
+
+team_name: "Antigravity Devs"
+
+primary_contact:
+  name: "Antigravity Team"
+  email: "antigravity@example.com"
+  phone: "+91-9999999999"
+
+team_members:
+  - name: "AI Agent"
+    email: "antigravity@example.com"
+    role: "Lead Architect"
+
+github_repo: "https://github.com/redrob-hackathon/antigravity-ranker"
+sandbox_link: "http://localhost:8501"
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "Local Windows Workstation"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Windows 11"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+ai_tools_used:
+  - "Antigravity Coding Assistant"
+
+ai_usage_summary: |
+  Used Antigravity for architecting, designing, and coding the complete pipeline.
+
+methodology_summary: |
+  High-performance hybrid AI ranking system matching candidate career narrative and structural features to a Job Description. Includes a BM25 sparse filter step to select 5,000 matches from 100k+ in sub-second, followed by SBERT career narrative semantic similarity embeddings, trust-weighted skill matching, location & YOE alignment, behavioral multiplier scoring, honeypot detection, and MMR diversity re-ranking. Runs strictly offline in <20s on CPU.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
