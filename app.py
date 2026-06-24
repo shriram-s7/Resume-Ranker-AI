@@ -17,7 +17,7 @@ from ranker.reasoning import generate_reasoning
 
 # ── Page Configuration ────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Redrob Candidate Ranker",
+    page_title="Resume Ranker AI",
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -57,7 +57,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-st.sidebar.markdown("<h2 style='text-align: center; color: #FF4B4B; margin-top: 0;'>🎯 Redrob Ranker</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='text-align: center; color: #FF4B4B; margin-top: 0;'>🎯 Resume Ranker AI</h2>", unsafe_allow_html=True)
 st.sidebar.title("Configuration")
 candidates_file_path = st.sidebar.text_input("Local Candidates Path", value="candidates.jsonl")
 top_k_bm25 = st.sidebar.number_input("BM25 Retrieval Pool Size", min_value=100, max_value=10000, value=5000, step=100)
@@ -162,7 +162,7 @@ if load_precomputed_btn:
 
 
 # ── Main Content Header ────────────────────────────────────────────────────────
-st.markdown('<div class="main-title">Redrob Intelligent Candidate Ranker</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">Resume Ranker AI</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Hackathon Challenge — End-to-End CPU Ranking System</div>', unsafe_allow_html=True)
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
@@ -176,7 +176,7 @@ tab_jd, tab_pipeline, tab_analytics, tab_inspector = st.tabs([
 # ── Tab 1: Job Description ───────────────────────────────────────────────────
 with tab_jd:
     st.subheader("Target Job Description")
-    st.info("Role: Founding Senior AI Engineer (Redrob AI)")
+    st.info("Role: Founding Senior AI Engineer (Resume Ranker AI)")
     st.text_area("Job Description", value=JD_TEXT.strip(), height=250, disabled=True)
     
     col1, col2 = st.columns(2)

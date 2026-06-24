@@ -12,7 +12,7 @@ team_members:
     email: "antigravity@example.com"
     role: "Lead Architect"
 
-github_repo: "https://github.com/redrob-hackathon/antigravity-ranker"
+github_repo: "https://github.com/shriram-s7/Resume-Ranker-AI.git"
 sandbox_link: "http://localhost:8501"
 reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
 

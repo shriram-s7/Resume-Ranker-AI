@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-rank.py — Redrob Hackathon Submission Entry Point
+rank.py — Resume Ranker AI Hackathon Submission Entry Point
 
 Usage:
     python rank.py --candidates ./candidates.jsonl --out ./submission.csv
@@ -28,7 +28,7 @@ from ranker.reasoning import generate_reasoning
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description="Redrob candidate ranker")
+    p = argparse.ArgumentParser(description="Resume Ranker AI candidate ranker")
     p.add_argument("--candidates", required=True, help="Path to candidates.jsonl or candidates.jsonl.gz")
     p.add_argument("--out", default="submission.csv", help="Output CSV path")
     p.add_argument("--top-k-bm25", type=int, default=5000, help="BM25 retrieval pool size")
@@ -41,7 +41,7 @@ def main():
     t0 = time.time()
     
     print("=" * 60)
-    print("REDROB INTELLIGENT CANDIDATE RANKER")
+    print("RESUME RANKER AI")
     print("=" * 60)
     
     # ── Stage 1: Load all candidates ──────────────────────────────────────

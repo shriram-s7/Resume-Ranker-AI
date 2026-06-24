@@ -1,6 +1,6 @@
-# Redrob Candidate Ranker — Full Codebase Specification
+# Resume Ranker AI — Full Codebase Specification
 
-This document contains the complete details of the folder structure, module descriptions, and the full source code for every file in the **Redrob Candidate Ranker** project.
+This document contains the complete details of the folder structure, module descriptions, and the full source code for every file in the **Resume Ranker AI** project.
 
 ---
 
@@ -1113,7 +1113,7 @@ def generate_reasoning(
 ```python
 #!/usr/bin/env python3
 """
-rank.py — Redrob Hackathon Submission Entry Point
+rank.py — Resume Ranker AI Hackathon Submission Entry Point
 
 Usage:
     python rank.py --candidates ./candidates.jsonl --out ./submission.csv
@@ -1141,7 +1141,7 @@ from ranker.reasoning import generate_reasoning
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description="Redrob candidate ranker")
+    p = argparse.ArgumentParser(description="Resume Ranker AI candidate ranker")
     p.add_argument("--candidates", required=True, help="Path to candidates.jsonl or candidates.jsonl.gz")
     p.add_argument("--out", default="submission.csv", help="Output CSV path")
     p.add_argument("--top-k-bm25", type=int, default=5000, help="BM25 retrieval pool size")
@@ -1154,7 +1154,7 @@ def main():
     t0 = time.time()
     
     print("=" * 60)
-    print("REDROB INTELLIGENT CANDIDATE RANKER")
+    print("RESUME RANKER AI")
     print("=" * 60)
     
     # ── Stage 1: Load all candidates ──────────────────────────────────────
@@ -1252,7 +1252,7 @@ from ranker.reasoning import generate_reasoning
 
 # ── Page Configuration ────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Redrob Candidate Ranker",
+    page_title="Resume Ranker AI",
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -1292,7 +1292,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-st.sidebar.markdown("<h2 style='text-align: center; color: #FF4B4B; margin-top: 0;'>🎯 Redrob Ranker</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='text-align: center; color: #FF4B4B; margin-top: 0;'>🎯 Resume Ranker AI</h2>", unsafe_allow_html=True)
 st.sidebar.title("Configuration")
 candidates_file_path = st.sidebar.text_input("Local Candidates Path", value="candidates.jsonl")
 top_k_bm25 = st.sidebar.number_input("BM25 Retrieval Pool Size", min_value=100, max_value=10000, value=5000, step=100)
@@ -1397,7 +1397,7 @@ if load_precomputed_btn:
 
 
 # ── Main Content Header ────────────────────────────────────────────────────────
-st.markdown('<div class="main-title">Redrob Intelligent Candidate Ranker</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">Resume Ranker AI</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Hackathon Challenge — End-to-End CPU Ranking System</div>', unsafe_allow_html=True)
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
@@ -1411,7 +1411,7 @@ tab_jd, tab_pipeline, tab_analytics, tab_inspector = st.tabs([
 # ── Tab 1: Job Description ───────────────────────────────────────────────────
 with tab_jd:
     st.subheader("Target Job Description")
-    st.info("Role: Founding Senior AI Engineer (Redrob AI)")
+    st.info("Role: Founding Senior AI Engineer (Resume Ranker AI)")
     st.text_area("Job Description", value=JD_TEXT.strip(), height=250, disabled=True)
     
     col1, col2 = st.columns(2)
@@ -1683,7 +1683,7 @@ team_members:
     email: "antigravity@example.com"
     role: "Lead Architect"
 
-github_repo: "https://github.com/redrob-hackathon/antigravity-ranker"
+github_repo: "https://github.com/shriram-s7/Resume-Ranker-AI.git"
 sandbox_link: "http://localhost:8501"
 reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
 
@@ -1890,11 +1890,11 @@ if __name__ == "__main__":
 
 ### 15. `README.md`
 ````markdown
-# Redrob Intelligent Candidate Discovery & Ranking System
+# Resume Ranker AI — Intelligent Candidate Discovery & Ranking System
 
 This repository contains a professional-grade, competition-ready candidate ranking system built for the Redrob Hackathon challenge: "Intelligent Candidate Discovery & Ranking."
 
-The system is optimized to discover, score, and rank the top 100 candidates for a specific **Senior AI Engineer (Founding Team at Redrob AI)** job description from a database of up to 100,000 profiles. It executes strictly on CPU in under 5 minutes, completely offline with zero external network API calls during ranking.
+The system (Resume Ranker AI) is optimized to discover, score, and rank the top 100 candidates for a specific **Senior AI Engineer (Founding Team at Redrob AI)** job description from a database of up to 100,000 profiles. It executes strictly on CPU in under 5 minutes, completely offline with zero external network API calls during ranking.
 
 ---
 
@@ -1932,7 +1932,7 @@ The discovery pipeline is structured into a 6-stage architecture:
 ## 📁 Repository Structure
 
 ```
-redrob-ranker/
+resume-ranker-ai/
 ├── rank.py                    # Main CLI entry point
 ├── app.py                     # Streamlit UI dashboard
 ├── requirements.txt           # Dependencies
@@ -1969,7 +1969,7 @@ python -m pip install -r requirements.txt
 To test the pipeline on realistic candidate structures, run our mock data generator script:
 
 ```bash
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/redrob-hackathon/antigravity-ranker/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
+python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/shriram-s7/Resume-Ranker-AI/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
 # Or execute the script already located in your local scratch folder:
 python -m scratch.generate_mock_data
 ```
@@ -2005,149 +2005,3 @@ streamlit run app.py
 * **Analytics**: Interactive dashboards showing score distribution, years of experience, locations, and top candidate titles.
 * **Candidate Inspector**: Drill down into any top 100 candidate to see detailed sub-scores (semantic, structural, skills), notice period details, career stability logs, and system reasoning.
 ````
-redrob-ranker/
-├── rank.py                    # Main CLI entry point
-├── app.py                     # Streamlit UI dashboard
-├── requirements.txt           # Dependencies
-├── README.md                  # This file
-├── submission_metadata.yaml   # metadata file
-├── validate_submission.py     # validation utility script
-└── ranker/
-    ├── __init__.py
-    ├── loader.py              # streaming loader and text builders
-    ├── retrieval.py           # BM25 sparse filter
-    ├── features.py            # SBERT semantic fit & structural logic
-    ├── scorer.py              # score fusion and fragility checks
-    ├── traps.py               # honeypot filter and title denylist
-    ├── diversity.py           # MMR diversity reranking
-    ├── reasoning.py           # rank-consistent reasoning generator
-    └── constants.py           # weights, thresholds, denylists, and JD text
-```
-
----
-
-## ⚙️ Installation & Setup
-
-Ensure Python is installed on your system. Install the project dependencies using the provided `requirements.txt`:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
----
-
-## 🧪 Testing the Pipeline
-
-### 1. Generate Mock Candidate Data
-To test the pipeline on realistic candidate structures, run our mock data generator script:
-
-```bash
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/redrob-hackathon/antigravity-ranker/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
-# Or execute the script already located in your local scratch folder:
-python -m scratch.generate_mock_data
-```
-This saves 1,000 mock profiles containing normal matches, consulting-only, research-only, title-chasers, and honeypot anomalies to `candidates.jsonl`.
-
-### 2. Execute CLI Ranker
-Run the main pipeline command:
-
-```bash
-python rank.py --candidates ./candidates.jsonl --out ./submission.csv
-```
-This reads candidates, executes the pipeline, and saves the top 100 candidates to `submission.csv`.
-
-### 3. Verify Submission Compliance
-Validate that the resulting CSV passes all competition formatting and sorting rules:
-
-```bash
-python validate_submission.py submission.csv
-```
-
----
-
-## 📊 Streamlit UI Dashboard
-
-To explore candidate rankings and inspect individual candidate details, launch the interactive UI:
-
-```bash
-streamlit run app.py
-```
-
-### UI Features:
-* **Run Pipeline**: Run discovery on your local candidate dataset with real-time progress bars.
-* **Analytics**: Interactive dashboards showing score distribution, years of experience, locations, and top candidate titles.
-* **Candidate Inspector**: Drill down into any top 100 candidate to see detailed sub-scores (semantic, structural, skills), notice period details, career stability logs, and system reasoning.
-```
-redrob-ranker/
-├── rank.py                    # Main CLI entry point
-├── app.py                     # Streamlit UI dashboard
-├── requirements.txt           # Dependencies
-├── README.md                  # This file
-├── submission_metadata.yaml   # metadata file
-├── validate_submission.py     # validation utility script
-└── ranker/
-    ├── __init__.py
-    ├── loader.py              # streaming loader and text builders
-    ├── retrieval.py           # BM25 sparse filter
-    ├── features.py            # SBERT semantic fit & structural logic
-    ├── scorer.py              # score fusion and fragility checks
-    ├── traps.py               # honeypot filter and title denylist
-    ├── diversity.py           # MMR diversity reranking
-    ├── reasoning.py           # rank-consistent reasoning generator
-    └── constants.py           # weights, thresholds, denylists, and JD text
-```
-
----
-
-## ⚙️ Installation & Setup
-
-Ensure Python is installed on your system. Install the project dependencies using the provided `requirements.txt`:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
----
-
-## 🧪 Testing the Pipeline
-
-### 1. Generate Mock Candidate Data
-To test the pipeline on realistic candidate structures, run our mock data generator script:
-
-```bash
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/redrob-hackathon/antigravity-ranker/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
-# Or execute the script already located in your local scratch folder:
-python -m scratch.generate_mock_data
-```
-This saves 1,000 mock profiles containing normal matches, consulting-only, research-only, title-chasers, and honeypot anomalies to `candidates.jsonl`.
-
-### 2. Execute CLI Ranker
-Run the main pipeline command:
-
-```bash
-python rank.py --candidates ./candidates.jsonl --out ./submission.csv
-```
-This reads candidates, executes the pipeline, and saves the top 100 candidates to `submission.csv`.
-
-### 3. Verify Submission Compliance
-Validate that the resulting CSV passes all competition formatting and sorting rules:
-
-```bash
-python validate_submission.py submission.csv
-```
-
----
-
-## 📊 Streamlit UI Dashboard
-
-To explore candidate rankings and inspect individual candidate details, launch the interactive UI:
-
-```bash
-streamlit run app.py
-```
-
-### UI Features:
-* **Run Pipeline**: Run discovery on your local candidate dataset with real-time progress bars.
-* **Analytics**: Interactive dashboards showing score distribution, years of experience, locations, and top candidate titles.
-* **Candidate Inspector**: Drill down into any top 100 candidate to see detailed sub-scores (semantic, structural, skills), notice period details, career stability logs, and system reasoning.
-```

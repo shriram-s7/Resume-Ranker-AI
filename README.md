@@ -1,8 +1,8 @@
-# Redrob Intelligent Candidate Discovery & Ranking System
+# Resume Ranker AI — Intelligent Candidate Discovery & Ranking System
 
 This repository contains a professional-grade, competition-ready candidate ranking system built for the Redrob Hackathon challenge: "Intelligent Candidate Discovery & Ranking."
 
-The system is optimized to discover, score, and rank the top 100 candidates for a specific **Senior AI Engineer (Founding Team at Redrob AI)** job description from a database of up to 100,000 profiles. It executes strictly on CPU in under 5 minutes, completely offline with zero external network API calls during ranking.
+The system (Resume Ranker AI) is optimized to discover, score, and rank the top 100 candidates for a specific **Senior AI Engineer (Founding Team at Redrob AI)** job description from a database of up to 100,000 profiles. It executes strictly on CPU in under 5 minutes, completely offline with zero external network API calls during ranking.
 
 ---
 
@@ -40,7 +40,7 @@ The discovery pipeline is structured into a 6-stage architecture:
 ## 📁 Repository Structure
 
 ```
-redrob-ranker/
+resume-ranker-ai/
 ├── rank.py                    # Main CLI entry point
 ├── app.py                     # Streamlit UI dashboard
 ├── requirements.txt           # Dependencies
@@ -77,7 +77,7 @@ python -m pip install -r requirements.txt
 To test the pipeline on realistic candidate structures, run our mock data generator script:
 
 ```bash
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/redrob-hackathon/antigravity-ranker/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
+python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/shriram-s7/Resume-Ranker-AI/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
 # Or execute the script already located in your local scratch folder:
 python -m scratch.generate_mock_data
 ```

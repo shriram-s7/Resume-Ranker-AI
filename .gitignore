@@ -13,3 +13,9 @@ venv/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Hackathon datasets and presentation materials
+given dataset in hackathon/
+Redrob_Hackathon_Report_The_Elite.pdf
+Redrob_Presentation.pdf
+Redrob_Presentation.pptx
