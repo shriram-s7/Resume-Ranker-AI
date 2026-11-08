@@ -1,12 +1,36 @@
-# Resume Ranker AI — Intelligent Candidate Discovery & Ranking System
+# Resume Ranker AI
 
-This repository contains a professional-grade, competition-ready candidate ranking system built for the Redrob Hackathon challenge: "Intelligent Candidate Discovery & Ranking."
+An explainable candidate discovery and ranking pipeline: given a pool of 100k+ candidate profiles and one job description, it returns the top 100 candidates with a score and a fact-grounded reason for each.
 
-The system (Resume Ranker AI) is optimized to discover, score, and rank the top 100 candidates for a specific **Senior AI Engineer (Founding Team at Redrob AI)** job description from a database of up to 100,000 profiles. It executes strictly on CPU in under 5 minutes, completely offline with zero external network API calls during ranking.
+**Links:** [GitHub](https://github.com/shriram-s7/Resume-Ranker-AI) · [Demo video](https://youtu.be/eIeOQ2dkHRQ)
 
----
+## Overview
 
-## ⚡ Key Pipeline Stages
+Built for the Redrob hackathon challenge "Intelligent Candidate Discovery & Ranking". The target role is **Senior AI Engineer (Founding Team at Redrob AI)**, whose job description and skill profile are in `ranker/constants.py`. Simple keyword matching is easy to game (keyword-stuffed skills, fake profiles), so the pipeline combines cheap sparse retrieval, semantic matching of career narratives, trust-weighted skills, hard "trap" filters and a diversity re-rank. Output is a CSV in the challenge format (`candidate_id, rank, score, reasoning`).
+
+## Features
+
+- **Streaming loader** for `candidates.jsonl` or `.jsonl.gz`, so the full pool never needs to sit in memory.
+- **Score fusion** of semantic fit (weight 0.40), structural fit (0.30) and trust-weighted skills (0.30), then a behavioural multiplier (floor 0.30) and a notice-period penalty.
+- **Anti-gaming checks:** title denylist, honeypot detection and a counterfactual fragility score.
+- **Reasoning generator** that cites facts from the profile (years, title, employer, matching skills).
+- **Streamlit dashboard** to run the pipeline, load a precomputed CSV, view analytics and inspect candidates.
+- **Submission validator** for the challenge's CSV rules.
+
+## How it works
+
+```mermaid
+flowchart LR
+  J[candidates.jsonl] --> L[loader.py: stream profiles]
+  L --> R[BM25 retrieval: top 5000]
+  R --> F[features.py: SBERT semantic fit, skills, structure]
+  F --> T[traps.py: title denylist + honeypots]
+  T --> S[scorer.py: fusion + fragility]
+  S --> M[diversity.py: MMR, lambda 0.8, pool 150]
+  M --> O[reasoning.py -> submission.csv, top 100]
+```
+
+## Pipeline stages
 
 The discovery pipeline is structured into a 6-stage architecture:
 
@@ -35,12 +59,20 @@ The discovery pipeline is structured into a 6-stage architecture:
    * Computes a counterfactual fragility score (performance drop when the best skill is ablated) for top candidates.
    * Generates rank-consistent, fact-grounded natural language reasoning for the matches.
 
----
+## Tech stack
 
-## 📁 Repository Structure
+| Layer | Technology |
+|---|---|
+| Language | Python (metadata records 3.11) |
+| Retrieval | rank-bm25 |
+| Embeddings | sentence-transformers `all-MiniLM-L6-v2` on CPU, PyTorch |
+| Data | pandas, NumPy, scikit-learn |
+| UI | Streamlit, Plotly |
+
+## Project structure
 
 ```
-resume-ranker-ai/
+Resume-Ranker-AI/
 ├── rank.py                    # Main CLI entry point
 ├── app.py                     # Streamlit UI dashboard
 ├── requirements.txt           # Dependencies
@@ -61,54 +93,53 @@ resume-ranker-ai/
 
 ---
 
-## ⚙️ Installation & Setup
+## Getting started
 
-Ensure Python is installed on your system. Install the project dependencies using the provided `requirements.txt`:
+Prerequisites: Python 3.11 (as recorded in `submission_metadata.yaml`) and enough disk for PyTorch. The first run downloads the `all-MiniLM-L6-v2` model unless it is already cached. No environment variables or API keys are needed.
 
-```bash
+**Windows (PowerShell)**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
 
----
-
-## 🧪 Testing the Pipeline
-
-### 1. Generate Mock Candidate Data
-To test the pipeline on realistic candidate structures, run our mock data generator script:
+**Linux / macOS**
 
 ```bash
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/shriram-s7/Resume-Ranker-AI/main/scratch/generate_mock_data.py', 'generate_mock_data.py')"
-# Or execute the script already located in your local scratch folder:
-python -m scratch.generate_mock_data
+python3 -m venv .venv && source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
-This saves 1,000 mock profiles containing normal matches, consulting-only, research-only, title-chasers, and honeypot anomalies to `candidates.jsonl`.
 
-### 2. Execute CLI Ranker
-Run the main pipeline command:
+## Usage
+
+The candidate dataset is supplied by the hackathon and is **not included** in this repository. Each line of `candidates.jsonl` is a JSON object with `candidate_id` (`CAND_` plus 7 digits), a `profile` block (title, years of experience, location, summary), `career_history`, `skills` and `redrob_signals`.
 
 ```bash
 python rank.py --candidates ./candidates.jsonl --out ./submission.csv
-```
-This reads candidates, executes the pipeline, and saves the top 100 candidates to `submission.csv`.
-
-### 3. Verify Submission Compliance
-Validate that the resulting CSV passes all competition formatting and sorting rules:
-
-```bash
 python validate_submission.py submission.csv
-```
-
----
-
-## 📊 Streamlit UI Dashboard
-
-To explore candidate rankings and inspect individual candidate details, launch the interactive UI:
-
-```bash
 streamlit run app.py
 ```
 
-### UI Features:
-* **Run Pipeline**: Run discovery on your local candidate dataset with real-time progress bars.
-* **Analytics**: Interactive dashboards showing score distribution, years of experience, locations, and top candidate titles.
-* **Candidate Inspector**: Drill down into any top 100 candidate to see detailed sub-scores (semantic, structural, skills), notice period details, career stability logs, and system reasoning.
+`rank.py` also accepts `--top-k-bm25` (default 5000) and `--verbose`. In the dashboard sidebar you can point to a local candidates file or load the precomputed `submission.csv` that is committed here, which avoids the several-minute CPU embedding run on 100k profiles.
+
+## Tests
+
+There is no unit-test suite. `validate_submission.py` checks the output CSV (exact header, 100 data rows, `CAND_xxxxxxx` ids). The pipeline itself was not re-run while writing this README because it needs the hackathon dataset and a model download.
+
+## Status and limitations
+
+- Complete for the hackathon submission; `submission.csv` in the repo is the produced top-100 file.
+- The scoring weights and thresholds in `ranker/constants.py` were chosen by reasoning, not learned or tuned on labelled data.
+- The pipeline is specific to the Senior AI Engineer job description baked into `constants.py`; another role needs new constants.
+- The earlier README pointed to a mock-data generator script that is not in this repository; supply your own test profiles in the format above.
+- `submission_metadata.yaml` contains placeholder contact details.
+
+## Team
+
+Team "Antigravity Devs" per `submission_metadata.yaml`.
+
+## License
+
+No license specified.
